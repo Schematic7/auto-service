@@ -1,9 +1,9 @@
 package bg.softuni.autoservice.model.entity;
 
+import bg.softuni.autoservice.model.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

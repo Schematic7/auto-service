@@ -1,5 +1,6 @@
 package bg.softuni.autoservice.model.entity;
 
+import bg.softuni.autoservice.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
