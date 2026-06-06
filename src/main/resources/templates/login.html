@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - AutoService</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding-top: 50px; }
+        .form-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; font-size: 14px;}
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;}
+        input:focus { border-color: #007bff; outline: none; }
+
+        .global-error { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb; text-align: center; font-size: 14px;}
+        .global-success { background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #c3e6cb; text-align: center; font-size: 14px;}
+
+        .btn-submit { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px;}
+        .btn-submit:hover { background-color: #218838; }
+        .register-link { display: block; text-align: center; margin-top: 15px; font-size: 14px; color: #007bff; text-decoration: none; }
+        .register-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Login</h2>
+
+    <div th:if="${param.error}" class="global-error">
+        Invalid username or password!
+    </div>
+
+    <div th:if="${param.logout}" class="global-success">
+        You have been successfully logged out.
+    </div>
+
+    <form th:action="@{/users/login}" th:method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required/>
+        </div>
+
+        <button type="submit" class="btn-submit">Login</button>
+    </form>
+
+    <a th:href="@{/users/register}" class="register-link">Don't have an account? Register here</a>
+</div>
+
+</body>
+</html>
