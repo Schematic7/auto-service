@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -57,4 +59,7 @@ public class User {
     public void preUpdate() {
         this.updatedOn = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Vehicle> vehicles = new ArrayList<>();
 }

@@ -27,6 +27,12 @@ public class Vehicle {
     @Column(nullable = false, unique = true)
     private String licensePlate;
 
+    @Column(nullable = false)
+    private Integer year;
+
+    @Column(nullable = false, unique = true, length = 17)
+    private String vin;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle - AutoService</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+
+        .navbar { background-color: #343a40; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; font-size: 16px;}
+        .navbar a:hover { color: #17a2b8; }
+
+        .container { display: flex; justify-content: center; padding-top: 40px; padding-bottom: 40px;}
+        .form-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; font-size: 14px;}
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;}
+        input:focus { border-color: #007bff; outline: none; }
+
+        .error-message { color: #dc3545; font-size: 13px; margin-top: 5px; display: block; font-weight: 500;}
+
+        .btn-submit { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px;}
+        .btn-submit:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a th:href="@{/}" style="font-size: 24px; font-weight: bold; margin-left: 0; letter-spacing: 1px;">AutoService</a>
+    </div>
+    <div class="menu">
+        <a th:href="@{/}">Home</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Add New Vehicle</h2>
+
+        <form th:action="@{/vehicles/add}" th:method="POST" th:object="${vehicleAddDTO}">
+
+            <div class="form-group">
+                <label for="make">Make</label>
+                <input type="text" id="make" th:field="*{make}" placeholder="e.g. BMW"/>
+                <span th:if="${#fields.hasErrors('make')}" th:errors="*{make}" class="error-message">Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" id="model" th:field="*{model}" placeholder="e.g. X5"/>
+                <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="error-message">Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="number" id="year" th:field="*{year}" placeholder="e.g. 2015"/>
+                <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="error-message">Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="licensePlate">License Plate</label>
+                <input type="text" id="licensePlate" th:field="*{licensePlate}" placeholder="e.g. CB1234AB"/>
+                <span th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}" class="error-message">Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="vin">VIN Number</label>
+                <input type="text" id="vin" th:field="*{vin}" placeholder="Exactly 17 characters"/>
+                <span th:if="${#fields.hasErrors('vin')}" th:errors="*{vin}" class="error-message">Error</span>
+            </div>
+
+            <button type="submit" class="btn-submit">Add Vehicle</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - AutoService</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+
+        .navbar { background-color: #343a40; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; font-size: 16px;}
+        .navbar a:hover { color: #17a2b8; }
+
+        .logout-form { margin: 0; padding: 0; display: inline-block; }
+        .btn-logout { background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 20px; font-size: 14px;}
+        .btn-logout:hover { background-color: #c82333; }
+
+        .container { padding: 50px; text-align: center; }
+        .welcome-card { background: white; padding: 50px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; border-top: 5px solid #007bff;}
+        h1 { color: #333; margin-top: 0;}
+        .subtitle { color: #666; font-size: 18px; line-height: 1.6; margin-bottom: 0;}
+        .highlight { color: #007bff; font-weight: bold; }
+
+        .garage-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
+        .garage-table th { background-color: #007bff; color: white; padding: 12px; text-align: left; }
+        .garage-table td { background-color: #f8f9fa; padding: 12px; border-bottom: 1px solid #ddd; color: #333; }
+        .garage-table tr:hover td { background-color: #e2e6ea; }
+        .empty-garage { padding: 20px; background-color: #fff3cd; color: #856404; border-radius: 5px; margin-top: 20px;}
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a th:href="@{/}" style="font-size: 24px; font-weight: bold; margin-left: 0; letter-spacing: 1px;">AutoService</a>
+    </div>
+    <div class="menu">
+
+        <div th:if="${username == null}" style="display: inline-block;">
+            <a th:href="@{/users/login}">Log in</a>
+            <a th:href="@{/users/register}">Register</a>
+        </div>
+
+        <div th:if="${username != null}" style="display: flex; align-items: center;">
+            <span style="font-size: 16px;">Hello, <span class="highlight" th:text="${username}">User</span>!</span>
+
+            <a th:href="@{/vehicles/add}">Add Vehicle</a>
+
+            <form th:action="@{/users/logout}" th:method="POST" class="logout-form">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="welcome-card">
+        <h1>Welcome to AutoService!</h1>
+
+        <div class="subtitle" th:if="${username == null}">
+            <p>Your reliable partner for car maintenance and repairs.</p>
+            <p>Please <a th:href="@{/users/login}" style="color: #007bff; text-decoration: none; font-weight: bold;">log in</a>
+                or <a th:href="@{/users/register}" style="color: #007bff; text-decoration: none; font-weight: bold;">register</a>
+                to book an appointment and manage your vehicles.</p>
+        </div>
+
+        <div th:if="${username != null}">
+            <h3 style="color: #333; text-align: left; border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-top: 30px;">🚗 My Garage</h3>
+
+            <div th:if="${#lists.isEmpty(vehicles)}" class="empty-garage">
+                You haven't added any vehicles yet. Click "Add Vehicle" to get started!
+            </div>
+
+            <table th:if="${!#lists.isEmpty(vehicles)}" class="garage-table">
+                <thead>
+                <tr>
+                    <th>Make & Model</th>
+                    <th>Year</th>
+                    <th>License Plate</th>
+                    <th>VIN Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.make + ' ' + vehicle.model}">Opel Corsa</td>
+                    <td th:text="${vehicle.year}">2026</td>
+                    <td th:text="${vehicle.licensePlate}" style="font-weight: bold;">PB1234PK</td>
+                    <td th:text="${vehicle.vin}" style="font-family: monospace;">123456789...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
