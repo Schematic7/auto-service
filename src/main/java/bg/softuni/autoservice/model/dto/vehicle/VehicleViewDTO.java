@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class VehicleViewDTO {
+    private String id;
     private String make;
     private String model;
     private String licensePlate;

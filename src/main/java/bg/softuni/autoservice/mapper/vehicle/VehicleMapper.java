@@ -1,6 +1,7 @@
 package bg.softuni.autoservice.mapper.vehicle;
 
 import bg.softuni.autoservice.model.dto.vehicle.VehicleAddDTO;
+import bg.softuni.autoservice.model.dto.vehicle.VehicleEditDTO;
 import bg.softuni.autoservice.model.dto.vehicle.VehicleViewDTO;
 import bg.softuni.autoservice.model.entity.User;
 import bg.softuni.autoservice.model.entity.Vehicle;
@@ -12,6 +13,7 @@ public class VehicleMapper {
         }
 
         return VehicleViewDTO.builder()
+                .id(String.valueOf(vehicle.getId()))
                 .make(vehicle.getMake())
                 .model(vehicle.getModel())
                 .licensePlate(vehicle.getLicensePlate())
@@ -33,5 +35,33 @@ public class VehicleMapper {
                 .vin(dto.getVin())
                 .owner(owner) // Закачаме собственика тук
                 .build();
+    }
+
+    public static void updateVehicleFromDto(Vehicle vehicle, VehicleEditDTO editDTO) {
+        if (vehicle == null || editDTO == null) {
+            return;
+        }
+
+        vehicle.setMake(editDTO.getMake());
+        vehicle.setModel(editDTO.getModel());
+        vehicle.setLicensePlate(editDTO.getLicensePlate());
+        vehicle.setYear(editDTO.getYear());
+        vehicle.setVin(editDTO.getVin());
+    }
+
+    public static VehicleEditDTO toEditDTO(Vehicle vehicle) {
+        if (vehicle == null) {
+            return null;
+        }
+
+        VehicleEditDTO editDTO = new VehicleEditDTO();
+        editDTO.setId(String.valueOf(vehicle.getId()));
+        editDTO.setMake(vehicle.getMake());
+        editDTO.setModel(vehicle.getModel());
+        editDTO.setLicensePlate(vehicle.getLicensePlate());
+        editDTO.setYear(vehicle.getYear());
+        editDTO.setVin(vehicle.getVin());
+
+        return editDTO;
     }
 }
