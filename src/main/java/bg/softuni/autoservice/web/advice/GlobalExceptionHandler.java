@@ -1,6 +1,6 @@
 package bg.softuni.autoservice.web.advice;
 
-import bg.softuni.autoservice.exceptions.VehicleNotFoundException;
+import bg.softuni.autoservice.exceptions.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,8 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(VehicleNotFoundException.class)
-    public ModelAndView handleVehicleNotFound(VehicleNotFoundException exception) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ModelAndView handleVehicleNotFound(ResourceNotFoundException exception) {
 
         ModelAndView modelAndView = new ModelAndView("error-not-found");
 
