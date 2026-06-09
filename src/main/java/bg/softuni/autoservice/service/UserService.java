@@ -1,6 +1,6 @@
 package bg.softuni.autoservice.service;
 
-import bg.softuni.autoservice.exception.EmailAlreadyExistsException;
+import bg.softuni.autoservice.exceptions.EmailAlreadyExistsException;
 import bg.softuni.autoservice.mapper.user.UserMapper;
 import bg.softuni.autoservice.model.dto.user.UserRegisterDTO;
 import bg.softuni.autoservice.model.entity.User;

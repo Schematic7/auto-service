@@ -1,4 +1,4 @@
-package bg.softuni.autoservice.exception;
+package bg.softuni.autoservice.exceptions;
 
 public class VehicleNotFoundException extends RuntimeException {
     public VehicleNotFoundException(String message) {

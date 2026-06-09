@@ -1,6 +1,6 @@
 package bg.softuni.autoservice.web.advice;
 
-import bg.softuni.autoservice.exception.VehicleNotFoundException;
+import bg.softuni.autoservice.exceptions.VehicleNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;

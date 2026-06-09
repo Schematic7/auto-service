@@ -1,5 +1,7 @@
 package bg.softuni.autoservice.service;
 
+import bg.softuni.autoservice.exceptions.ResourceNotFoundException;
+import bg.softuni.autoservice.exceptions.UnauthorizedActionException;
 import bg.softuni.autoservice.model.dto.appointment.AppointmentAddDTO;
 import bg.softuni.autoservice.model.dto.appointment.AppointmentViewDTO;
 import bg.softuni.autoservice.model.entity.Appointment;
@@ -31,16 +33,16 @@ public class AppointmentService {
     public void createAppointment(AppointmentAddDTO dto, String username) {
 
         Vehicle vehicle = vehicleRepository.findById(UUID.fromString(dto.getVehicleId()))
-                .orElseThrow(() -> new IllegalArgumentException("Vehicle not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found!"));
 
 
         if (!vehicle.getOwner().getUsername().equals(username)) {
-            throw new IllegalArgumentException("You are not authorized to book an appointment for this vehicle!");
+            throw new UnauthorizedActionException("You are not authorized to book an appointment for this vehicle!");
         }
 
 
         ServiceType serviceType = serviceTypeRepository.findById(UUID.fromString(dto.getServiceTypeId()))
-                .orElseThrow(() -> new IllegalArgumentException("Service type not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Service type not found!"));
 
 
         Appointment appointment = Appointment.builder()
@@ -71,10 +73,10 @@ public class AppointmentService {
     public void cancelAppointment(UUID id, String username) {
 
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
 
         if (!appointment.getVehicle().getOwner().getUsername().equals(username)) {
-            throw new IllegalArgumentException("You are not authorized to cancel this appointment!");
+            throw new UnauthorizedActionException("You are not authorized to cancel this appointment!");
         }
 
         appointment.setStatus(bg.softuni.autoservice.model.enums.AppointmentStatus.CANCELLED);

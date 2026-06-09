@@ -1,4 +1,4 @@
-package bg.softuni.autoservice.exception;
+package bg.softuni.autoservice.exceptions;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     public EmailAlreadyExistsException(String message) {
