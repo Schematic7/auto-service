@@ -3,6 +3,8 @@ package bg.softuni.autoservice.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,4 +38,8 @@ public class Vehicle {
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Appointment> appointments = new ArrayList<>();
 }
