@@ -4,11 +4,16 @@ import bg.softuni.autoservice.model.dto.appointment.AppointmentAddDTO;
 import bg.softuni.autoservice.service.AppointmentService;
 import bg.softuni.autoservice.service.ServiceTypeService;
 import bg.softuni.autoservice.service.VehicleService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/appointments")
@@ -42,10 +47,10 @@ public class AppointmentController {
     }
 
     @PostMapping("/add")
-    public String addAppointmentConfirm(@jakarta.validation.Valid AppointmentAddDTO appointmentAddDTO,
-                                        org.springframework.validation.BindingResult bindingResult,
-                                        org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes,
-                                        @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    public String addAppointmentConfirm(@Valid AppointmentAddDTO appointmentAddDTO,
+                                        BindingResult bindingResult,
+                                        RedirectAttributes redirectAttributes,
+                                        @AuthenticationPrincipal UserDetails userDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("appointmentAddDTO", appointmentAddDTO);
@@ -60,8 +65,8 @@ public class AppointmentController {
     }
 
     @PostMapping("/cancel/{id}")
-    public String cancelAppointment(@PathVariable java.util.UUID id,
-                                    @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    public String cancelAppointment(@PathVariable UUID id,
+                                    @AuthenticationPrincipal UserDetails userDetails) {
 
         appointmentService.cancelAppointment(id, userDetails.getUsername());
 
