@@ -83,4 +83,35 @@ public class AppointmentService {
 
         appointmentRepository.save(appointment);
     }
+
+    public List<AppointmentViewDTO> getAllAppointmentsForAdmin() {
+        return appointmentRepository.findAllByOrderByAppointmentDateDesc()
+                .stream()
+                .map(appointment -> AppointmentViewDTO.builder()
+                        .id(appointment.getId().toString())
+                        .appointmentDate(appointment.getAppointmentDate())
+                        .vehicleInfo(appointment.getVehicle().getOwner().getUsername() + " - " +
+                                appointment.getVehicle().getMake() + " " +
+                                appointment.getVehicle().getLicensePlate())
+                        .serviceName(appointment.getServiceType().getName())
+                        .status(appointment.getStatus())
+                        .build())
+                .toList();
+    }
+
+    public void approveAppointment(UUID id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
+
+        appointment.setStatus(bg.softuni.autoservice.model.enums.AppointmentStatus.APPROVED);
+        appointmentRepository.save(appointment);
+    }
+
+    public void completeAppointment(UUID id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
+
+        appointment.setStatus(bg.softuni.autoservice.model.enums.AppointmentStatus.COMPLETED);
+        appointmentRepository.save(appointment);
+    }
 }

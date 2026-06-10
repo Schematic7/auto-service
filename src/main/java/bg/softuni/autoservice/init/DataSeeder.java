@@ -1,8 +1,11 @@
 package bg.softuni.autoservice.init;
 
 import bg.softuni.autoservice.model.entity.ServiceType;
+import bg.softuni.autoservice.model.entity.User;
 import bg.softuni.autoservice.repository.ServiceTypeRepository;
+import bg.softuni.autoservice.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,9 +14,13 @@ import java.util.List;
 public class DataSeeder implements CommandLineRunner {
 
     private final ServiceTypeRepository serviceTypeRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    public DataSeeder(ServiceTypeRepository serviceTypeRepository) {
+    public DataSeeder(ServiceTypeRepository serviceTypeRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.serviceTypeRepository = serviceTypeRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -45,6 +52,31 @@ public class DataSeeder implements CommandLineRunner {
                     .build();
 
             serviceTypeRepository.saveAll(List.of(diagnostics, maintenance, repair, inspection));
+        }
+
+        if (userRepository.count() == 0) {
+
+            User regularUser = User.builder()
+                    .username("user")
+                    .firstName("Normal")
+                    .lastName("User")
+                    .email("user@autoservice.com")
+                    .password(passwordEncoder.encode("12345")) // ВАЖНО: Хешираме паролата!
+                    .phoneNumber("0888123456")
+                    .role(bg.softuni.autoservice.model.enums.UserRole.USER)
+                    .build();
+
+            User adminUser = User.builder()
+                    .username("admin")
+                    .firstName("Super")
+                    .lastName("Admin")
+                    .email("admin@autoservice.com")
+                    .password(passwordEncoder.encode("12345"))
+                    .phoneNumber("0888999999")
+                    .role(bg.softuni.autoservice.model.enums.UserRole.ADMIN)
+                    .build();
+
+            userRepository.saveAll(List.of(regularUser, adminUser));
         }
     }
 }

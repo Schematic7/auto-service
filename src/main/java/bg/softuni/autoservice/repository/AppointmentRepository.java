@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface AppointmentRepository extends JpaRepository<Appointment, UUID> {
 
     List<Appointment> findAllByVehicleOwnerUsernameOrderByAppointmentDateDesc(String username);
+
+    List<Appointment> findAllByOrderByAppointmentDateDesc();
 }

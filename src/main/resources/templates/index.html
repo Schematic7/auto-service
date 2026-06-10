@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home - AutoService</title>
@@ -46,6 +48,12 @@
             <a th:href="@{/appointments/add}">Book Appointment</a>
 
             <a th:href="@{/vehicles/add}">Add Vehicle</a>
+
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/appointments}" style="color: red; font-weight: bold;">
+                    ⚙️ Admin Dashboard
+                </a>
+            </li>
 
             <form th:action="@{/users/logout}" th:method="POST" class="logout-form">
                 <button type="submit" class="btn-logout">Logout</button>
