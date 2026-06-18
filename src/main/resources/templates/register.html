@@ -258,26 +258,30 @@
                 Registration failed. Please try again.
             </div>
 
-            <form th:action="@{/users/register}" th:method="POST" th:object="${userRegisterBindingModel}">
+            <form th:action="@{/users/register}" th:method="POST" th:object="${registerDTO}">
 
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Choose a username" required/>
+                    <input type="text" id="username" th:field="*{username}" placeholder="Choose a username"/>
+                    <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: #ff6b6b; display: block; margin-top: 5px; font-size: 0.85rem; font-weight: 600;"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required/>
+                    <input type="email" id="email" th:field="*{email}" placeholder="Enter your email"/>
+                    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: #ff6b6b; display: block; margin-top: 5px; font-size: 0.85rem; font-weight: 600;"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Create a password" required/>
+                    <input type="password" id="password" th:field="*{password}" placeholder="Create a password"/>
+                    <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: #ff6b6b; display: block; margin-top: 5px; font-size: 0.85rem; font-weight: 600;"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required/>
+                    <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Repeat your password"/>
+                    <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color: #ff6b6b; display: block; margin-top: 5px; font-size: 0.85rem; font-weight: 600;"></small>
                 </div>
 
                 <button type="submit" class="btn-submit">Register</button>

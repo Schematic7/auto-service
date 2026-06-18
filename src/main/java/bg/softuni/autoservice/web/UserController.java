@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerConfirm(@Valid UserRegisterDTO registerDTO,
+    public String registerConfirm(@Valid @ModelAttribute("registerDTO") UserRegisterDTO registerDTO,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
 
