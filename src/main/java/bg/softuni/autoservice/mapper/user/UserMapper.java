@@ -13,10 +13,7 @@ public class UserMapper {
 
         return User.builder()
                 .username(registerDTO.getUsername())
-                .firstName(registerDTO.getFirstName())
-                .lastName(registerDTO.getLastName())
                 .email(registerDTO.getEmail())
-                .phoneNumber(registerDTO.getPhoneNumber())
                 .password(encodedPassword)
                 .role(UserRole.USER)
                 .build();

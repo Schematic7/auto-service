@@ -13,20 +13,9 @@ public class UserRegisterDTO {
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters!")
     private String username;
 
-    @NotBlank(message = "First name cannot be empty!")
-    @Size(min = 2, max = 20, message = "First name must be between 2 and 20 characters!")
-    private String firstName;
-
-    @NotBlank(message = "Last name cannot be empty!")
-    @Size(min = 2, max = 20, message = "Last name must be between 2 and 20 characters!")
-    private String lastName;
-
     @NotBlank(message = "Email cannot be empty!")
     @Email(message = "Must be a valid email address!")
     private String email;
-
-    @NotBlank(message = "Phone number cannot be empty!")
-    private String phoneNumber;
 
     @NotBlank(message = "Password cannot be empty!")
     @Size(min = 5, message = "Password must be at least 5 characters long!")

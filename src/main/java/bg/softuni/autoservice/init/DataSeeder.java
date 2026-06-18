@@ -58,21 +58,16 @@ public class DataSeeder implements CommandLineRunner {
 
             User regularUser = User.builder()
                     .username("user")
-                    .firstName("Normal")
-                    .lastName("User")
                     .email("user@autoservice.com")
-                    .password(passwordEncoder.encode("12345")) // ВАЖНО: Хешираме паролата!
-                    .phoneNumber("0888123456")
+                    .password(passwordEncoder.encode("12345"))
                     .role(bg.softuni.autoservice.model.enums.UserRole.USER)
                     .build();
 
             User adminUser = User.builder()
                     .username("admin")
-                    .firstName("Super")
-                    .lastName("Admin")
                     .email("admin@autoservice.com")
                     .password(passwordEncoder.encode("12345"))
-                    .phoneNumber("0888999999")
+
                     .role(bg.softuni.autoservice.model.enums.UserRole.ADMIN)
                     .build();
 
