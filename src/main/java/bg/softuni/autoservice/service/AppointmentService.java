@@ -95,6 +95,7 @@ public class AppointmentService {
                                 appointment.getVehicle().getLicensePlate())
                         .serviceName(appointment.getServiceType().getName())
                         .status(appointment.getStatus())
+                        .notes(appointment.getNotes())
                         .build())
                 .toList();
     }

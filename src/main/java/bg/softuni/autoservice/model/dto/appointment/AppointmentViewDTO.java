@@ -16,4 +16,5 @@ public class AppointmentViewDTO {
     private String vehicleInfo;
     private String serviceName;
     private AppointmentStatus status;
+    private String notes;
 }

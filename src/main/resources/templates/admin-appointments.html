@@ -26,6 +26,7 @@
         <th>Date & Time</th>
         <th>Client & Vehicle</th>
         <th>Service Type</th>
+        <th>Notes</th>
         <th>Status</th>
         <th>Actions</th>
     </tr>
@@ -35,6 +36,7 @@
         <td th:text="${#temporals.format(app.appointmentDate, 'dd-MMM-yyyy HH:mm')}" style="font-weight: bold;"></td>
         <td th:text="${app.vehicleInfo}"></td>
         <td th:text="${app.serviceName}"></td>
+        <td th:text="${app.notes ?: '-'}" style="max-width: 250px; font-style: italic; color: #555;"></td>
         <td>
             <span th:if="${app.status.name() == 'PENDING'}" style="background-color: #ffc107; padding: 3px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">PENDING</span>
             <span th:if="${app.status.name() == 'APPROVED'}" style="background-color: #17a2b8; color: white; padding: 3px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">APPROVED</span>
@@ -60,7 +62,7 @@
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(allAppointments)}">
-        <td colspan="4" style="text-align: center; color: #6c757d;">No appointments found in the system.</td>
+        <td colspan="6" style="text-align: center; color: #6c757d;">No appointments found in the system.</td>
     </tr>
     </tbody>
 </table>
