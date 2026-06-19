@@ -2,6 +2,7 @@ package bg.softuni.autoservice.service;
 
 import bg.softuni.autoservice.exceptions.ResourceNotFoundException;
 import bg.softuni.autoservice.exceptions.UnauthorizedActionException;
+import bg.softuni.autoservice.mapper.appointment.AppointmentMapper;
 import bg.softuni.autoservice.model.dto.appointment.AppointmentAddDTO;
 import bg.softuni.autoservice.model.dto.appointment.AppointmentViewDTO;
 import bg.softuni.autoservice.model.entity.Appointment;
@@ -58,15 +59,7 @@ public class AppointmentService {
     public List<AppointmentViewDTO> getAppointmentsForUser(String username) {
         return appointmentRepository.findAllByVehicleOwnerUsernameOrderByAppointmentDateDesc(username)
                 .stream()
-                .map(appointment -> AppointmentViewDTO.builder()
-                        .id(appointment.getId().toString())
-                        .appointmentDate(appointment.getAppointmentDate())
-                        .vehicleInfo(appointment.getVehicle().getMake() + " " +
-                                appointment.getVehicle().getModel() + " (" +
-                                appointment.getVehicle().getLicensePlate() + ")")
-                        .serviceName(appointment.getServiceType().getName())
-                        .status(appointment.getStatus())
-                        .build())
+                .map(AppointmentMapper::toUserViewDTO)
                 .toList();
     }
 
@@ -87,16 +80,7 @@ public class AppointmentService {
     public List<AppointmentViewDTO> getAllAppointmentsForAdmin() {
         return appointmentRepository.findAllByOrderByAppointmentDateDesc()
                 .stream()
-                .map(appointment -> AppointmentViewDTO.builder()
-                        .id(appointment.getId().toString())
-                        .appointmentDate(appointment.getAppointmentDate())
-                        .vehicleInfo(appointment.getVehicle().getOwner().getUsername() + " - " +
-                                appointment.getVehicle().getMake() + " " +
-                                appointment.getVehicle().getLicensePlate())
-                        .serviceName(appointment.getServiceType().getName())
-                        .status(appointment.getStatus())
-                        .notes(appointment.getNotes())
-                        .build())
+                .map(AppointmentMapper::toAdminViewDTO)
                 .toList();
     }
 
