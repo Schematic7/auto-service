@@ -30,10 +30,10 @@ public class VehicleMapper {
         return Vehicle.builder()
                 .make(dto.getMake())
                 .model(dto.getModel())
-                .licensePlate(dto.getLicensePlate())
+                .licensePlate(dto.getLicensePlate().toUpperCase())
                 .year(dto.getYear())
-                .vin(dto.getVin())
-                .owner(owner) // Закачаме собственика тук
+                .vin(dto.getVin().toUpperCase())
+                .owner(owner)
                 .build();
     }
 
@@ -44,9 +44,9 @@ public class VehicleMapper {
 
         vehicle.setMake(editDTO.getMake());
         vehicle.setModel(editDTO.getModel());
-        vehicle.setLicensePlate(editDTO.getLicensePlate());
+        vehicle.setLicensePlate(editDTO.getLicensePlate().toUpperCase());
         vehicle.setYear(editDTO.getYear());
-        vehicle.setVin(editDTO.getVin());
+        vehicle.setVin(editDTO.getVin().toUpperCase());
     }
 
     public static VehicleEditDTO toEditDTO(Vehicle vehicle) {
